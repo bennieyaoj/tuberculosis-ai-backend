@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: tuberculosis-ai-backend
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app_deepseek_v2.py"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: FLASK_DEBUG
+        value: "False"
+      - key: PORT
+        value: 10000
+      # 重要：DEEPSEEK_API_KEY 需要在 Render.com 后台手动配置，不要硬编码！
+      # 部署完成后：Render 控制台 → Environment → Add Environment Variable
+      # Key:   DEEPSEEK_API_KEY
+      # Value: 在 https://platform.deepseek.com 生成并填写（切勿提交到代码库）

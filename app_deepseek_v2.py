@@ -4,7 +4,7 @@ import os
 import requests
 import json
 
-app = Flask(__name__, static_folder='../frontend', static_url_path='')
+app = Flask(__name__, static_folder='static', static_url_path='')
 CORS(app)
 
 # DeepSeek API配置（必须从环境变量读取，无默认值）
