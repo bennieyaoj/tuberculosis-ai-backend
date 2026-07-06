@@ -9,8 +9,6 @@ services:
         value: "3.11"
       - key: FLASK_DEBUG
         value: "False"
-      - key: PORT
-        value: 10000
       # 重要：DEEPSEEK_API_KEY 需要在 Render.com 后台手动配置，不要硬编码！
       # 部署完成后：Render 控制台 → Environment → Add Environment Variable
       # Key:   DEEPSEEK_API_KEY
