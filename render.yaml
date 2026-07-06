@@ -3,7 +3,7 @@ services:
     name: tuberculosis-ai-backend
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "python app_deepseek_v2.py"
+    startCommand: "gunicorn -b 0.0.0.0:$PORT --timeout 120 app_deepseek_v2:app"
     envVars:
       - key: PYTHON_VERSION
         value: "3.11"

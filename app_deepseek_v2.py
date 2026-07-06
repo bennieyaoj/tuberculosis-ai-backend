@@ -428,6 +428,11 @@ def get_health_declaration():
 如果出现严重副作用或紧急情况，请立即就医。"""
     return jsonify({"declaration": declaration})
 
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    # 供 Render.com 健康检查的端点：服务存活即返回 status:ok
+    return jsonify({"status": "ok", "ai_enabled": bool(DEEPSEEK_API_KEY)})
+
 @app.route('/api/topics', methods=['GET'])
 def get_topics():
     topics = list(knowledge_base.keys())
