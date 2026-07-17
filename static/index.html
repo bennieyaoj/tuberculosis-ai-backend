@@ -17,7 +17,7 @@
             overflow: hidden;
         }
         .container {
-            flex: 1;
+            height: 100%;
             display: flex;
             flex-direction: column;
             min-height: 0;
@@ -27,36 +27,36 @@
             background: #ededed;
             position: relative;
         }
-        /* 顶部标题栏 - 固定在顶部 */
+        /* 顶部标题栏 - 固定 */
         .header {
             background: linear-gradient(135deg, #4a6cf7 0%, #6a3df7 100%);
             color: white;
-            padding: 14px 16px;
-            padding-top: calc(14px + env(safe-area-inset-top));
+            padding: 12px 16px;
+            padding-top: calc(12px + env(safe-area-inset-top));
             text-align: center;
             flex-shrink: 0;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             z-index: 10;
         }
-        .header h1 { font-size: 17px; font-weight: 600; }
-        .header p { font-size: 11px; opacity: 0.85; margin-top: 3px; }
+        .header h1 { font-size: 16px; font-weight: 600; }
+        .header p { font-size: 11px; opacity: 0.85; margin-top: 2px; }
 
-        /* 聊天区域 - 可滚动，占满中间空间 */
+        /* 聊天区域 - 唯一可滚动区域 */
         .chat-container {
             flex: 1;
             min-height: 0;
             overflow-y: auto;
             overflow-x: hidden;
-            padding: 14px 12px;
+            padding: 12px 10px;
             background: #ededed;
             -webkit-overflow-scrolling: touch;
         }
-        .message { margin-bottom: 14px; display: flex; }
+        .message { margin-bottom: 12px; display: flex; }
         .message-content {
             max-width: 78%;
-            padding: 11px 14px;
+            padding: 10px 13px;
             border-radius: 14px;
-            line-height: 1.6;
+            line-height: 1.55;
             font-size: 15px;
             white-space: pre-wrap;
             word-break: break-word;
@@ -74,7 +74,7 @@
             color: white;
             border-top-right-radius: 4px;
         }
-        .typing-indicator { display: none; padding: 11px 14px; }
+        .typing-indicator { display: none; padding: 10px 13px; }
         .typing-indicator span {
             display: inline-block; width: 7px; height: 7px;
             background: #999; border-radius: 50%; margin-right: 4px;
@@ -84,14 +84,14 @@
         .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
         @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-6px); opacity: 1; } }
 
-        /* 快捷问题 - 移动端横滑 */
+        /* 快捷问题 - 紧凑一排，横滑 */
         .quick-questions {
             flex-shrink: 0;
             display: flex;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
-            padding: 10px 12px;
-            gap: 8px;
+            padding: 7px 10px;
+            gap: 6px;
             background: #f7f7f7;
             border-top: 1px solid #e5e5e5;
             scrollbar-width: none;
@@ -99,33 +99,33 @@
         .quick-questions::-webkit-scrollbar { display: none; }
         .quick-btn {
             flex: 0 0 auto;
-            padding: 8px 14px;
+            padding: 6px 12px;
             background: white;
             border: 1px solid #d9d9d9;
-            border-radius: 18px;
+            border-radius: 16px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             color: #555;
             white-space: nowrap;
-            transition: all 0.2s;
+            line-height: 1.4;
         }
         .quick-btn:active { background: linear-gradient(135deg, #4a6cf7 0%, #6a3df7 100%); color: white; border-color: transparent; }
 
-        /* 输入区 - 固定在底部 */
+        /* 输入区 - 固定底部 */
         .input-container {
             flex-shrink: 0;
             display: flex;
             gap: 8px;
-            padding: 10px 12px;
-            padding-bottom: calc(10px + env(safe-area-inset-bottom));
+            padding: 8px 10px;
+            padding-bottom: calc(8px + env(safe-area-inset-bottom));
             background: #f7f7f7;
             border-top: 1px solid #e5e5e5;
         }
         #userInput {
             flex: 1;
-            padding: 11px 16px;
+            padding: 10px 15px;
             border: 1px solid #ddd;
-            border-radius: 22px;
+            border-radius: 20px;
             font-size: 15px;
             outline: none;
             background: white;
@@ -134,11 +134,11 @@
         #userInput:focus { border-color: #4a6cf7; }
         #sendBtn {
             flex: 0 0 auto;
-            padding: 11px 20px;
+            padding: 10px 18px;
             background: linear-gradient(135deg, #4a6cf7 0%, #6a3df7 100%);
             color: white;
             border: none;
-            border-radius: 22px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 15px;
             font-weight: 500;
@@ -146,16 +146,16 @@
         #sendBtn:active { opacity: 0.85; }
         #sendBtn:disabled { opacity: 0.5; }
 
-        /* 免责声明 - 折叠，节省空间 */
+        /* 免责声明 - 极简，节省空间 */
         .disclaimer {
             flex-shrink: 0;
-            padding: 8px 14px;
-            padding-bottom: calc(8px + env(safe-area-inset-bottom));
+            padding: 6px 14px;
+            padding-bottom: calc(6px + env(safe-area-inset-bottom));
             background: #fff8e1;
-            font-size: 11px;
-            color: #8a6d3b;
-            line-height: 1.5;
-            max-height: 56px;
+            font-size: 10px;
+            color: #a08a55;
+            line-height: 1.45;
+            max-height: 38px;
             overflow-y: auto;
         }
         .source-tag {
@@ -180,7 +180,10 @@
             }
             .chat-container { background: #f5f5f5; }
             .quick-questions { flex-wrap: wrap; overflow-x: visible; }
-            .disclaimer { max-height: none; background: #fff3cd; color: #856404; }
+            .disclaimer { max-height: none; background: #fff3cd; color: #856404; font-size: 13px; padding: 12px 20px; }
+            .header { padding: 24px; }
+            .header h1 { font-size: 22px; }
+            .header p { font-size: 13px; }
         }
     </style>
 </head>
@@ -220,11 +223,19 @@
         </div>
 
         <div class="disclaimer">
-            <strong>⚠️ 免责声明：</strong>本系统提供的患者教育信息仅供参考，不能替代专业医生的诊断和治疗建议。如果您有具体的健康问题或症状，请及时咨询您的管理医生或前往医院就诊。请严格遵医嘱服药，不可自行调整药物或停药。
+            <strong>⚠️ 免责声明：</strong>本系统提供的信息仅供参考，不能替代专业医生的诊断和治疗建议。如有具体健康问题，请及时咨询您的管理医生或前往医院就诊。请严格遵医嘱服药，不可自行调整药物或停药。
         </div>
     </div>
 
     <script>
+        // 锁定视口高度：确保整页不滚动，只有聊天区可滚动，输入框始终可见
+        function fixViewportHeight() {
+            document.body.style.height = window.innerHeight + 'px';
+        }
+        window.addEventListener('resize', fixViewportHeight);
+        window.addEventListener('orientationchange', fixViewportHeight);
+        fixViewportHeight();
+
         // 后端API地址配置
         // 如果使用相对路径（后端同时提供前端文件），保持为空字符串
         // 如果前端单独部署，请修改为后端实际地址，例如：https://your-app.onrender.com
