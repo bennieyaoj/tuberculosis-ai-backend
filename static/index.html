@@ -158,15 +158,6 @@
             max-height: 38px;
             overflow-y: auto;
         }
-        .source-tag {
-            display: inline-block;
-            padding: 2px 8px;
-            background: #e3f2fd;
-            color: #1976d2;
-            border-radius: 10px;
-            font-size: 11px;
-            margin-top: 6px;
-        }
 
         /* 桌面端：恢复卡片式居中 */
         @media (min-width: 768px) {
@@ -275,16 +266,7 @@
                 document.getElementById('sendBtn').disabled = false;
 
                 // 显示回答
-                let answerText = data.answer;
-
-                // 添加来源标签
-                if (data.source === 'deepseek_ai') {
-                    answerText += '\n\n<div class="source-tag">🤖 AI生成</div>';
-                } else if (data.source === 'knowledge_base') {
-                    answerText += `\n\n<div class="source-tag">📚 知识库匹配 (${data.topic})</div>`;
-                }
-
-                addMessage(answerText, 'bot');
+                addMessage(data.answer, 'bot');
             })
             .catch(error => {
                 // 隐藏输入指示器
