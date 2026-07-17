@@ -1,14 +1,162 @@
-🏥 结核病AI患者教育助手
-基于权威医学指南 · 由DeepSeek AI驱动
-                    您好！我是结核病AI患者教育助手。我可以帮您解答关于结核病治疗、用药、营养、康复等方面的问题。请问有什么可以帮到您？
-                
-🦠 传染途径
-🤒 症状表现
-🏥 就诊地点
-⏰ 治疗时时长
-💊 药物副作用
-🍎 营养饮食
-💰 治疗费用
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>结核病AI患者教育助手</title>
+    <style>
+        * { margin:0; padding:0; box-sizing: border-box; }
+        body { font-family: Arial; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        .container { background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 800px; width: 100%; overflow: hidden; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; }
+        .chat-container { height: 500px; overflow-y: auto; padding: 20px; background: #f5f5f5; }
+        .message { margin-bottom: 15px; }
+        .message-content { max-width: 70%; padding: 15px 20px; border-radius: 20px; line-height: 1.6; white-space: pre-wrap; }
+        .bot .message-content { background: white; color: #333; border-bottom-left-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .user .message-content { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-bottom-right-radius: 5px; margin-left: auto; }
+        .typing-indicator { display: none; padding: 15px 20px; }
+        .typing-indicator span { display: inline-block; width: 8px; height: 8px; background: #667eea; border-radius: 50%; margin-right: 5px; animation: typing 1.4s infinite; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-10px); } }
+        .quick-questions { padding: 15px 20px; background: white; border-top: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 10px; }
+        .quick-btn { padding: 8px 15px; background: #f0f0f0; border: none; border-radius: 20px; cursor: pointer; font-size: 14px; }
+        .quick-btn:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .input-container { padding: 20px; background: white; border-top: 1px solid #eee; display: flex; gap: 10px; }
+        #userInput { flex: 1; padding: 15px; border: 2px solid #eee; border-radius: 25px; font-size: 16px; outline: none; }
+        #sendBtn { padding: 15px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 25px; cursor: pointer; font-size: 16px; }
+        .disclaimer { padding: 15px 20px; background: #fff3cd; border-top: 1px solid #ffeaa7; font-size: 13px; color: #856404; line-height: 1.5; }
+        .source-tag { display: inline-block; padding: 2px 8px; background: #e3f2fd; color: #1976d2; border-radius: 10px; font-size: 12px; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏥 结核病AI患者教育助手</h1>
+            <p>基于权威医学指南 · 由DeepSeek AI驱动</p>
+        </div>
 
-发送
-⚠️ 免责声明：本系统提供的患者教育信息仅供参考，不能替代专业医生的诊断和治疗建议。如果您有具体的健康问题或症状，请及时咨询您的管理医生或前往医院就诊。请严格遵医嘱服药，不可自行调整药物或停药。
+        <div class="chat-container" id="chatContainer">
+            <div class="message bot">
+                <div class="message-content">
+                    您好！我是结核病AI患者教育助手。我可以帮您解答关于结核病治疗、用药、营养、康复等方面的问题。请问有什么可以帮到您？
+                </div>
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="quick-questions">
+            <button class="quick-btn" onclick="askQuick('结核病会传染吗？')">🦠 传染途径</button>
+            <button class="quick-btn" onclick="askQuick('结核病有哪些症状？')">🤒 症状表现</button>
+            <button class="quick-btn" onclick="askQuick('得了结核病要去哪里看病？')">🏥 就诊地点</button>
+            <button class="quick-btn" onclick="askQuick('结核病要治疗多久？')">⏰ 治疗时长</button>
+            <button class="quick-btn" onclick="askQuick('抗结核药有什么副作用？')">💊 药物副作用</button>
+            <button class="quick-btn" onclick="askQuick('结核病患者吃什么好？')">🍎 营养饮食</button>
+            <button class="quick-btn" onclick="askQuick('治疗结核病要花多少钱？')">💰 治疗费用</button>
+        </div>
+
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="请输入您的问题..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button id="sendBtn" onclick="sendMessage()">发送</button>
+        </div>
+
+        <div class="disclaimer">
+            <strong>⚠️ 免责声明：</strong>本系统提供的患者教育信息仅供参考，不能替代专业医生的诊断和治疗建议。如果您有具体的健康问题或症状，请及时咨询您的管理医生或前往医院就诊。请严格遵医嘱服药，不可自行调整药物或停药。
+        </div>
+    </div>
+
+    <script>
+        // 后端API地址配置
+        // 如果使用相对路径（后端同时提供前端文件），保持为空字符串
+        // 如果前端单独部署，请修改为后端实际地址，例如：https://your-app.onrender.com
+        const API_BASE_URL = '';
+
+        // 构建完整的API URL
+        function getApiUrl(path) {
+            if (API_BASE_URL) {
+                return API_BASE_URL + path;
+            }
+            return path;  // 使用相对路径
+        }
+
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value.trim();
+            
+            if (message === '') return;
+            
+            addMessage(message, 'user');
+            userInput.value = '';
+            
+            // 显示输入指示器
+            document.getElementById('typingIndicator').style.display = 'block';
+            document.getElementById('sendBtn').disabled = true;
+            
+            // 调用后端API
+            fetch(getApiUrl('/api/ask'), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 隐藏输入指示器
+                document.getElementById('typingIndicator').style.display = 'none';
+                document.getElementById('sendBtn').disabled = false;
+                
+                // 显示回答
+                let answerText = data.answer;
+                
+                // 添加来源标签
+                if (data.source === 'deepseek_ai') {
+                    answerText += '\n\n<div class="source-tag">🤖 AI生成</div>';
+                } else if (data.source === 'knowledge_base') {
+                    answerText += `\n\n<div class="source-tag">📚 知识库匹配 (${data.topic})</div>`;
+                }
+                
+                addMessage(answerText, 'bot');
+            })
+            .catch(error => {
+                // 隐藏输入指示器
+                document.getElementById('typingIndicator').style.display = 'none';
+                document.getElementById('sendBtn').disabled = false;
+                
+                console.error('Error:', error);
+                addMessage('抱歉，系统暂时无法响应，请稍后再试或咨询您的管理医生。', 'bot');
+            });
+        }
+
+        function addMessage(text, sender) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.innerHTML = text;  // 使用innerHTML支持HTML标签
+            
+            messageDiv.appendChild(contentDiv);
+            chatContainer.insertBefore(messageDiv, document.getElementById('typingIndicator'));
+            
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function askQuick(question) {
+            document.getElementById('userInput').value = question;
+            sendMessage();
+        }
+
+        // 页面加载时滚动到底部
+        window.onload = function() {
+            const chatContainer = document.getElementById('chatContainer');
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        };
+    </script>
+</body>
+</html>
